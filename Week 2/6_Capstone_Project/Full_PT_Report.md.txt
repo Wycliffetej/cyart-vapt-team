@@ -1,0 +1,21 @@
+# Full PTES Penetration Test Report
+
+## Overview
+This assessment followed PTES methodology.
+
+## Phases
+
+### Reconnaissance
+Open services identified via Nmap.
+
+### Scanning
+Vulnerable services confirmed.
+
+### Exploitation
+vsftpd 2.3.4 successfully exploited using Metasploit.
+
+### Post-Exploitation
+Root access confirmed and sensitive files reviewed.
+
+## Conclusion
+Critical vulnerabilities exist that allow full remote compromise. Immediate remediation required.
