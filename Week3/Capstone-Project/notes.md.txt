@@ -1,0 +1,110 @@
+# Capstone Project Notes – Full VAPT Cycle
+
+## Objective
+The objective of this capstone project was to perform a complete Vulnerability Assessment and Penetration Testing (VAPT) cycle on a vulnerable machine in a controlled lab environment.
+
+The assessment included reconnaissance, vulnerability identification, exploitation, web application testing, and post-exploitation evidence collection.
+
+---
+
+## Target Environment
+
+Attacker Machine: Kali Linux  
+Target Machine: Metasploitable 2  
+Target IP Address: 192.168.206.139  
+Testing Environment: Local Virtual Lab
+
+---
+
+## Tools Used
+
+- Nmap
+- Metasploit Framework
+- Burp Suite
+- SQLMap
+- Wireshark
+
+---
+
+## Reconnaissance
+
+Network scanning was performed using Nmap to identify open ports and services running on the target system.
+
+Command used:
+
+nmap -sV 192.168.206.139
+
+The scan revealed several open ports including FTP (21), SSH (22), HTTP (80), and MySQL (3306).
+
+---
+
+## Exploitation
+
+The FTP service running VSFTPD 2.3.4 was found to contain a known backdoor vulnerability.
+
+Metasploit Framework was used to exploit this vulnerability.
+
+Commands used:
+
+use exploit/unix/ftp/vsftpd_234_backdoor  
+set RHOSTS 192.168.206.139  
+run
+
+The exploit successfully provided root access to the target system.
+
+---
+
+## Web Application Testing
+
+The web application hosted on the target system was tested for common vulnerabilities such as SQL Injection and Cross-Site Scripting (XSS).
+
+Burp Suite was used to intercept HTTP requests and analyze application parameters.
+
+SQLMap was used to test SQL injection vulnerabilities.
+
+Example payload used for XSS testing:
+
+<script>alert('XSS')</script>
+
+---
+
+## Post-Exploitation
+
+After gaining access, system information was collected and network traffic was captured.
+
+Commands used:
+
+whoami  
+id  
+uname -a  
+ifconfig
+
+Wireshark was used to capture HTTP and TCP network traffic.
+
+---
+
+## Evidence Collection
+
+Evidence integrity was verified using SHA256 hashing.
+
+Command used:
+
+sha256sum evidence.txt
+
+This ensures the collected evidence remains unchanged and verifiable.
+
+---
+
+## Key Findings
+
+1. VSFTPD 2.3.4 Backdoor – Critical vulnerability allowing root access.
+2. SQL Injection – High severity vulnerability allowing database access.
+3. Cross-Site Scripting (XSS) – Medium severity vulnerability allowing client-side script execution.
+
+---
+
+## Conclusion
+
+The VAPT assessment successfully demonstrated multiple vulnerabilities within the target system. The exploitation of the VSFTPD backdoor allowed full system compromise. Additionally, web application vulnerabilities such as SQL Injection and Cross-Site Scripting were identified.
+
+Proper patch management, secure coding practices, and regular vulnerability assessments are recommended to mitigate these risks.
