@@ -1,0 +1,48 @@
+# Mobile Application Security Testing
+
+## Objective
+The objective of this task is to analyze an Android application for potential security vulnerabilities using static analysis tools.
+
+## Tool Used
+VirusTotal – Online malware analysis platform.
+
+## Target Application
+Application Name: InsecureBankv2  
+Platform: Android  
+File Type: APK
+
+InsecureBankv2 is an intentionally vulnerable Android application used for security learning and penetration testing practice.
+
+## Steps Performed
+
+1. Downloaded the vulnerable Android application (InsecureBankv2.apk).
+2. Uploaded the APK file to VirusTotal.
+3. VirusTotal performed static analysis using multiple antivirus engines.
+4. Observed security detections and metadata of the APK file.
+5. Reviewed application permissions and security indicators.
+
+## Analysis Results
+
+• VirusTotal detected the file as potentially malicious.  
+• 17 out of 67 security vendors flagged the APK as malicious.  
+• The application contains suspicious behaviors typically found in insecure or malicious apps.
+
+## Detected Indicators
+
+The following behaviors were detected:
+
+- Telephony access
+- SMS sending capability
+- Clipboard access
+- GPS checks
+- Code reflection
+- Obfuscated code
+
+These behaviors may allow attackers to perform malicious actions such as sending SMS messages, accessing sensitive information, or tracking user location.
+
+## Conclusion
+
+The analysis shows that the InsecureBankv2 application contains multiple security issues.  
+Since this application is intentionally designed to be vulnerable, it is useful for learning mobile application security testing techniques.
+
+Static analysis tools like VirusTotal help identify potentially malicious behaviors in Android applications before installing them on a device.

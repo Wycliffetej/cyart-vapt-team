@@ -1,0 +1,154 @@
+# API Security Testing – DVWA
+
+## Objective
+The objective of this task is to analyze and test API and web application requests using Burp Suite and identify vulnerabilities such as SQL Injection.
+
+Target Application: DVWA (Damn Vulnerable Web Application)  
+Testing Tool: Burp Suite  
+Testing Environment: Kali Linux
+
+---
+
+## Step 1 – Start Apache Server
+
+Command used:
+
+service apache2 start
+
+Purpose:
+Start the Apache web server so that DVWA can be accessed locally.
+
+Screenshot:
+screenshots/01_apache_start.png
+
+---
+
+## Step 2 – DVWA Dashboard Access
+
+The DVWA application was accessed using a browser.
+
+URL:
+http://localhost/DVWA
+
+Purpose:
+Verify that the vulnerable web application is running.
+
+Screenshot:
+screenshots/01_dvwa_dashboard.png
+
+---
+
+## Step 3 – Start MySQL Service
+
+Command used:
+
+service mysql start
+
+Purpose:
+Start the database service required by DVWA.
+
+Screenshot:
+screenshots/02_mysql_start.png
+
+---
+
+## Step 4 – Start Burp Suite
+
+Burp Suite was launched to intercept and analyze HTTP requests.
+
+Purpose:
+Capture HTTP traffic between the browser and DVWA.
+
+Screenshot:
+screenshots/02_burp_start.png
+
+---
+
+## Step 5 – Intercept HTTP Request
+
+Burp Proxy was enabled and the request from DVWA was intercepted.
+
+Purpose:
+Analyze HTTP request parameters and manipulate them for testing.
+
+Screenshot:
+screenshots/04_request_intercepted.png
+
+---
+
+## Step 6 – Forward Request
+
+The intercepted request was forwarded to allow normal application flow.
+
+Purpose:
+Observe the interaction between client and server.
+
+Screenshot:
+screenshots/05_forward_request.png
+
+---
+
+## Step 7 – Send Request to Repeater
+
+The intercepted request was sent to the Repeater module in Burp Suite.
+
+Purpose:
+Manually modify and resend requests to test vulnerabilities.
+
+Screenshot:
+screenshots/06_send_to_repeater.png
+
+---
+
+## Step 8 – Modify Request Parameter
+
+The "id" parameter in the request was modified.
+
+Example:
+
+id=1 → id=2
+
+Purpose:
+Test whether the application properly validates user input.
+
+Screenshot:
+screenshots/08_modify_parameter.png
+
+---
+
+## Step 9 – Analyze Server Response
+
+The server response was analyzed to observe differences when parameters were modified.
+
+Purpose:
+Check if unauthorized data access is possible.
+
+Screenshot:
+screenshots/09_response_result.png
+
+---
+
+## Step 10 – SQL Injection Test
+
+SQL injection payload used:
+
+id=1 OR 1=1
+
+Encoded payload:
+
+id=1%20OR%201=1
+
+Purpose:
+Test if the application database query is vulnerable to SQL Injection.
+
+Result:
+The server returned multiple database records indicating that the SQL Injection vulnerability exists.
+
+Screenshot:
+screenshots/10_sql_injection_test.png
+
+---
+
+## Conclusion
+
+The testing confirmed that the DVWA application is vulnerable to SQL Injection due to improper input validation. Burp Suite successfully intercepted and manipulated HTTP requests, demonstrating how attackers could exploit insecure APIs and parameters.

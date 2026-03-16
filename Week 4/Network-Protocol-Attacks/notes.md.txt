@@ -1,0 +1,97 @@
+# Network Protocol Attacks
+
+## Objective
+The objective of this task is to identify insecure network services running on the target system and exploit weak protocols such as FTP, Telnet, and SMB to gain unauthorized access.
+
+Target Machine: Metasploitable2  
+Target IP: 192.168.206.139  
+Attacker Machine: Kali Linux
+
+---
+
+## Step 1: Network Service Scanning
+
+The first step is to scan the target machine to identify open ports and running services.
+
+Command Used:
+
+nmap -sV 192.168.206.139
+
+This scan helps identify vulnerable services such as FTP, Telnet, and SMB that may allow unauthorized access.
+
+Screenshot:
+screenshots/01_protocol_scan.png
+
+---
+
+## Step 2: FTP Enumeration
+
+The FTP service was tested to check whether anonymous login is allowed.
+
+Command Used:
+
+ftp 192.168.206.139
+
+Result:
+Anonymous login was successful, which indicates poor security configuration.
+
+Screenshot:
+screenshots/02_ftp_login.png
+
+---
+
+## Step 3: Telnet Access
+
+Telnet service was tested to determine if login access could be obtained using default credentials.
+
+Command Used:
+
+telnet 192.168.206.139
+
+Credentials Used:
+Username: msfadmin  
+Password: msfadmin
+
+Result:
+Successful login was achieved through Telnet, demonstrating insecure remote access.
+
+Screenshot:
+screenshots/03_telnet_login.png
+
+---
+
+## Step 4: SMB Enumeration
+
+SMB shares were enumerated to identify accessible shared resources.
+
+Command Used:
+
+smbclient -L //192.168.206.139 -N
+
+Result:
+The SMB service allowed enumeration without authentication.
+
+Screenshot:
+screenshots/04_smb_enum.png
+
+---
+
+## Step 5: SMB Share Access
+
+After enumeration, the shared directory was accessed.
+
+Command Used:
+
+smbclient //192.168.206.139/tmp -N
+
+Result:
+Access to the shared directory was successfully obtained.
+
+Screenshot:
+screenshots/05_smb_access.png
+
+---
+
+## Conclusion
+
+The target system exposes multiple insecure services including FTP, Telnet, and SMB. These services allow unauthorized access due to weak configurations and default credentials. Such vulnerabilities can allow attackers to gain system access and move laterally within the network.

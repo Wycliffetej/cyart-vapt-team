@@ -1,0 +1,140 @@
+# Capstone Project – Full VAPT Engagement Workflow
+
+## Objective
+
+The objective of this capstone project was to simulate a complete Vulnerability Assessment and Penetration Testing (VAPT) engagement on a vulnerable target machine. The testing followed the PTES methodology including reconnaissance, scanning, exploitation, and reporting.
+
+---
+
+# Environment Setup
+
+**Attacker Machine**
+
+* Kali Linux
+
+**Target Machine**
+
+* Vulnerable VM (HackTheBox / Metasploitable / Lab machine)
+
+**Tools Used**
+
+* Nmap
+* Metasploit Framework
+* Burp Suite
+* OpenVAS
+* Wireshark
+
+---
+
+# Step 1 – Reconnaissance
+
+Initial reconnaissance was performed to identify the target machine and verify connectivity.
+
+Command used:
+
+```
+ping 192.168.206.139
+```
+
+This confirmed that the target machine was reachable on the network.
+
+---
+
+# Step 2 – Network Scanning
+
+Nmap was used to scan the target machine to identify open ports, services, and potential vulnerabilities.
+
+Command used:
+
+```
+nmap -A 192.168.206.139
+```
+
+The scan revealed several open ports including FTP, Telnet, and SMB services.
+
+---
+
+# Step 3 – Vulnerability Identification
+
+The Nmap scan results showed that the FTP service was running **VSFTPD version 2.3.4**, which contains a known backdoor vulnerability.
+
+This vulnerability allows attackers to gain unauthorized access to the system through a hidden backdoor.
+
+CVE Reference:
+CVE-2011-2523
+
+---
+
+# Step 4 – Exploitation
+
+The Metasploit Framework was used to exploit the VSFTPD backdoor vulnerability.
+
+Commands used:
+
+```
+msfconsole
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOST 192.168.206.139
+run
+```
+
+The exploit successfully established a remote shell session on the target machine.
+
+---
+
+# Step 5 – Post Exploitation
+
+After successful exploitation, several commands were executed to verify system access.
+
+Commands used:
+
+```
+whoami
+uname -a
+id
+```
+
+These commands confirmed that the attacker gained command execution access on the system.
+
+---
+
+# Step 6 – API Security Testing
+
+Burp Suite was used to intercept and analyze HTTP requests between the client and the web application.
+
+Testing performed:
+
+* API endpoint enumeration
+* Parameter manipulation
+* Injection testing
+
+Burp Repeater was used to modify requests and analyze server responses.
+
+---
+
+# Step 7 – Vulnerability Assessment
+
+An automated vulnerability scan was performed using OpenVAS to identify additional vulnerabilities within the system.
+
+The scan results helped identify outdated software versions and insecure configurations.
+
+---
+
+# Step 8 – Remediation Recommendations
+
+The following remediation steps were recommended to mitigate the vulnerabilities discovered:
+
+* Update outdated services such as VSFTPD
+* Disable unnecessary network services
+* Implement proper authentication mechanisms
+* Apply regular security patches
+* Restrict system permissions using least privilege principles
+* Deploy a Web Application Firewall (WAF)
+
+---
+
+# Conclusion
+
+The capstone project demonstrated a full penetration testing workflow from reconnaissance to exploitation and reporting. Multiple vulnerabilities were identified and successfully exploited to demonstrate the potential impact of insecure configurations and outdated services.
+
+Implementing the recommended security measures will significantly improve the security posture of the system and reduce the risk of future cyber attacks.
